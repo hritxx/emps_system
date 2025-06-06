@@ -1,0 +1,27 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.DS_store
+
+# Virtual environments
+.venv
+.env
+
+db/
+epms/
+*.csv
+chromedriver
+# Logs
+*.log
+# IDE specific files
+.idea/
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+# Coverage reports
+*.zip
+*.duckdb
+app2.py
