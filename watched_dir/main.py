@@ -3,6 +3,7 @@ import signal
 import sys
 import time
 from .folder_watcher import FolderWatcher
+from .database import DatabaseManager
 from .config import Config
 
 
@@ -25,6 +26,35 @@ def setup_logging():
             logging.StreamHandler(sys.stdout)
         ]
     )
+
+
+def initialize_database():
+    """Initialize database tables"""
+    logger = logging.getLogger(__name__)
+    logger.info("Initializing database tables...")
+
+    db_manager = DatabaseManager()
+
+    try:
+        if not db_manager.connect():
+            logger.error("Failed to connect to database for initialization")
+            return False
+
+        # Create all necessary tables
+        success = db_manager.create_all_tables()
+
+        if success:
+            logger.info("Database initialization completed successfully")
+        else:
+            logger.error("Database initialization failed")
+
+        return success
+
+    except Exception as e:
+        logger.error(f"Database initialization error: {str(e)}")
+        return False
+    finally:
+        db_manager.disconnect()
 
 
 def signal_handler(signum, frame):
@@ -51,6 +81,11 @@ def main():
     signal.signal(signal.SIGTERM, signal_handler)
 
     try:
+        # Initialize database tables
+        if not initialize_database():
+            logger.error("Database initialization failed. Exiting...")
+            sys.exit(1)
+
         # Create folder watcher instance
         global watcher
         watcher = FolderWatcher()
