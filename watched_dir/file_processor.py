@@ -40,19 +40,19 @@ class FileProcessor:
                 'conflict_columns': ['employee_code']
             },
             'experience_report': {
-                'table': 'experience_report',
+                'table': 'employee_experience_report',
                 'columns': ['employee_code', 'employee_name', 'business_unit', 'department',
                             'designation', 'date_of_joining', 'current_experience', 'past_experience',
                             'total_experience'],
                 'conflict_columns': ['employee_code']
             },
             'timesheet_report': {
-                'table': 'timesheet_report',
+                'table': 'timesheets',
                 'columns': ['date', 'employee_code', 'project_id', 'project_name', 'hours_worked'],
                 'conflict_columns': ['date', 'employee_code', 'project_id']
             },
             'attendance_report_dailycopy': {
-                'table': 'attendance_report_dailycopy',
+                'table': 'daily_attendance',
                 'columns': ['date', 'employee_code', 'employee_name', 'clock_in_time',
                             'clock_out_time', 'total_hours'],
                 'conflict_columns': ['date', 'employee_code']
